@@ -1,5 +1,8 @@
+// Declaring npm palages MySQL and Inquirer
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
+
+// Importing fuctions for all cases of app from lib folder
 const viewEmployees = require("./lib/viewEmployees");
 const addEmployees = require("./lib/addEmployees");
 const updateEmployee = require("./lib/updateEmployee");
@@ -11,6 +14,8 @@ const updateManager = require("./lib/updateManager");
 const deleteDepartment = require("./lib/deleteDepartment");
 const deleteRole = require("./lib/deleteRole");
 const deleteEmployee = require("./lib/deleteEmployee");
+
+// creating connection to emloyee_db database
 const db = mysql.createConnection(
     {
         host: 'localhost',
@@ -21,7 +26,7 @@ const db = mysql.createConnection(
     console.log("Welcom to Employee Manager")
 );
 
-
+// Initializing function to start the app with different chooses
 const init = function () {
     inquirer.prompt([
         {
@@ -33,6 +38,7 @@ const init = function () {
         }
     ])
         .then((data) => {
+            // Switching between all cases of app functions
             switch (data.toDo) {
                 case "View All Employees":
                     viewEmployees(init, db);
@@ -76,7 +82,6 @@ const init = function () {
                     deleteDepartment(init, db);
                     break;
 
-
                 case "Exit":
                     console.log(`Good Bye`);
                     break;
@@ -84,5 +89,5 @@ const init = function () {
         })
 };
 
-
+// calling init function when app starts
 init();
